@@ -20,14 +20,15 @@ public class PersonCountingServiceImpl implements PersonCountingService {
 
     @Override
     public int countPersonsWithLastNameStartingWith(char letter, Collection<Person> persons) {
-        return ofNullable(persons).map(it -> it.stream()
-            .filter(Objects::nonNull)
-            .map(Person::getLastName)
-            .filter(StringUtils::isNotBlank)
-            .filter(name -> name.startsWith(String.valueOf(letter)))
-            .map(name -> 1)
-            .reduce(0, Integer::sum)
-        ).orElse(0);
+        return ofNullable(persons)
+            .map(it -> it.stream()
+                .filter(Objects::nonNull)
+                .map(Person::getLastName)
+                .filter(StringUtils::isNotBlank)
+                .filter(name -> name.startsWith(String.valueOf(letter)))
+                .map(name -> 1)
+                .reduce(0, Integer::sum)
+            ).orElse(0);
     }
 
     @Override
@@ -58,13 +59,15 @@ public class PersonCountingServiceImpl implements PersonCountingService {
     }
 
     private static IntStream extractAges(Collection<Person> persons) {
-        return persons.stream().filter(Objects::nonNull)
+        return persons.stream()
+            .filter(Objects::nonNull)
             .filter(person -> Objects.nonNull(person.getAge()))
             .mapToInt(Person::getAge);
     }
 
     private static LongStream extractIds(Collection<Person> persons) {
-        return persons.stream().filter(Objects::nonNull)
+        return persons.stream()
+            .filter(Objects::nonNull)
             .filter(person -> Objects.nonNull(person.getId()))
             .mapToLong(Person::getId);
     }
