@@ -93,4 +93,22 @@ class PersonCountingServiceImplTest {
             )
         );
     }
+
+    @ParameterizedTest
+    @MethodSource
+    void countPersonsWithSameNameTest(int expected, Collection<Person> persons, String name) {
+        assertEquals(expected, service.countPersonsWithFirstName(name, persons));
+    }
+
+    public static Stream<Arguments> countPersonsWithSameNameTest() {
+        return Stream.of(
+            Arguments.of(0, null, null),
+            Arguments.of(0, Collections.emptyList(), null),
+            Arguments.of(0, Collections.emptyList(), ""),
+            Arguments.of(1, List.of(new Person(), new Person().setFirstName("aaa"), new Person().setFirstName("bbb")), "aaa"),
+            Arguments.of(2, List.of(new Person(), new Person().setFirstName("aaa"), new Person().setFirstName("aaa")), "aaa"),
+            Arguments.of(0, List.of(new Person(), new Person().setFirstName("aaa"), new Person().setFirstName("aaa")), "bbb")
+        );
+    }
+
 }

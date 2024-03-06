@@ -12,4 +12,6 @@ public interface PersonCountingService {
     double countAverageAge(Collection<Person> persons);
 
     List<Long> findMissingIds(Collection<Person> persons);
+
+    int countPersonsWithFirstName(String name, Collection<Person> persons);
 }
