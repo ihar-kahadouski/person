@@ -1,4 +1,4 @@
-package com.khdsk.boost.person.api;
+package com.khdsk.boost.person.api.controller;
 
 import com.khdsk.boost.person.entity.Person;
 import com.khdsk.boost.person.service.PersonService;
@@ -38,7 +38,7 @@ class PersonControllerRateLimitingTest {
     private MockMvc mockMvc;
 
     @RepeatedTest(5)
-    void getTest_tooManyRequests(RepetitionInfo repetitionInfo) throws Exception {
+    void tooManyRequestsTest(RepetitionInfo repetitionInfo) throws Exception {
         when(service.get(TestData.id)).thenReturn(Optional.of(TestData.person));
         when(service.delete(TestData.id)).thenReturn(true);
         when(service.create(any())).thenReturn(TestData.person);

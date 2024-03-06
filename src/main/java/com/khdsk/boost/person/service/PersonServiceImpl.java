@@ -7,6 +7,7 @@ import com.khdsk.boost.person.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
@@ -21,6 +22,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Optional<Person> get(Long id) {
         return ofNullable(id).map(repository::getReferenceById);
+    }
+
+    @Override
+    public List<Person> getAll() {
+        return repository.findAll();
     }
 
     @Override

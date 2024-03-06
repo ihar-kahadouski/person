@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,7 @@ import static com.khdsk.boost.person.api.util.Messages.buildMessage;
 @RestController
 @RequestMapping("/v1/persons")
 @RequiredArgsConstructor
+@Tag(name = "Person", description = "the person api")
 public class PersonController {
 
     private final PersonService service;
