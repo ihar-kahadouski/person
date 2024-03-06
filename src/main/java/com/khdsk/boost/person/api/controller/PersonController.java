@@ -1,9 +1,10 @@
-package com.khdsk.boost.person.api;
+package com.khdsk.boost.person.api.controller;
 
 import com.khdsk.boost.person.api.mapper.PersonResponseMapper;
 import com.khdsk.boost.person.api.model.PersonRequest;
 import com.khdsk.boost.person.api.model.PersonResponse;
 import com.khdsk.boost.person.service.PersonService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,6 +36,7 @@ public class PersonController {
     private final PersonService service;
     private final PersonResponseMapper mapper;
 
+    @RateLimiter(name = "getPersonById")
     @Operation(summary = "Get a person by its id")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Found the person", content = @Content(mediaType = "application/json")),
@@ -48,6 +50,7 @@ public class PersonController {
             .orElse(ResponseEntity.notFound().build());
     }
 
+    @RateLimiter(name = "createPerson")
     @Operation(summary = "Create person")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Person created", content = @Content(mediaType = "application/json")),
@@ -58,6 +61,7 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.map(service.create(request)));
     }
 
+    @RateLimiter(name = "updatePerson")
     @Operation(summary = "Update a person by its id")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Person updated", content = @Content(mediaType = "application/json")),
@@ -72,6 +76,7 @@ public class PersonController {
             .orElse(ResponseEntity.notFound().build());
     }
 
+    @RateLimiter(name = "deletePersonById")
     @Operation(summary = "Delete a person by its id")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Person deleted", content = @Content(mediaType = "application/json")),
